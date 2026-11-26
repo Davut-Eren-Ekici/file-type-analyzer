@@ -5,8 +5,9 @@ import java.util.stream.Stream;
 
 public class FileTypeAnalyzer {
     public static void main(String[] args) {
-        
+
         String klasorYolu;
+        
 
         if (args.length > 0 && !args[0].isBlank()) {
             klasorYolu = args[0];
