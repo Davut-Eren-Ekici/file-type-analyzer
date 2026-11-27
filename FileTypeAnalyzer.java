@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class FileTypeAnalyzer {
+public class FileTypeAnalyzer {                         //özel bir klasör yolu vermek isterseniz java -jar file-type-analyzer.jar "Buraya Yolu Girin ve terminalde çalıştırın"
     public static void main(String[] args) {
 
         String klasorYolu;
