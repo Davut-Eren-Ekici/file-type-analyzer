@@ -1,20 +1,34 @@
-import java.util.List;
-import java.util.Map;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
-public class FileTypeAnalyzer {                         //özel bir klasör yolu vermek isterseniz java -jar file-type-analyzer.jar "Buraya Yolu Girin ve terminalde çalıştırın"
+public class FileTypeAnalyzer { // özel bir klasör yolu vermek isterseniz java -jar file-type-analyzer.jar
+                                // "Buraya Yolu Girin ve terminalde çalıştırın"
     public static void main(String[] args) {
 
         String klasorYolu;
 
         if (args.length > 0 && !args[0].isBlank()) {
-            klasorYolu = args[0];
+            klasorYolu = args[0].trim();
         } else {
-            klasorYolu = "test-dosyalari";
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Taranacak klasör yolunu girin (varsayılan için Enter'a basın): ");
+            String giris = scanner.nextLine().trim();
+            scanner.close();
+
+            if (giris.isEmpty()) {
+                klasorYolu = "test-dosyalari";
+            } else {
+                klasorYolu = giris;
+            }
         }
+
+        // Kullanıcı yolu çift tırnak içinde yapıştırırsa temizleyelim
+        klasorYolu = klasorYolu.replace("\"", "").trim();
 
         Path hedefKlasor = Path.of(klasorYolu);
 
@@ -28,15 +42,14 @@ public class FileTypeAnalyzer {                         //özel bir klasör yolu
 
         try (Stream<Path> dosyalar = Files.list(hedefKlasor)) {
             dosyalar
-                    .filter(Files::isRegularFile)// alt klasörleri eler yanlızca normal dosyaları geçirir
+                    .filter(Files::isRegularFile) // alt klasörleri eler yanlızca normal dosyaları geçirir
                     .forEach(dosya -> {
                         String dosyaAdi = dosya.getFileName().toString();
                         String tur = turBelirle(dosyaAdi);
                         System.out.println(dosyaAdi + "  -->  " + tur);
-
                     });
         } catch (IOException e) {
-            System.out.println("Dosyalar Okunurken Bir Hata Oluştu" + e.getMessage());
+            System.out.println("Dosyalar Okunurken Bir Hata Oluştu: " + e.getMessage());
         }
     }
 
