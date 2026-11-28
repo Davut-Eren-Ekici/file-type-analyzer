@@ -48,7 +48,7 @@ PowerShell
 java -jar file-type-analyzer.jar "C:\Users\ekici\OneDrive\Desktop\flas2"
 Örnek Çıktı
 Plaintext
-Taranan klasor: C:\Users\ekici\OneDrive\Desktop\flas2
+Taranan klasor: C:\Users\User1\OneDrive\Desktop\flas2
 ----------------------------------------
 index1.html  -->  Kod
 OKULLOGO01.psd  -->  Gorsel
